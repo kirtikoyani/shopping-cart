@@ -5,13 +5,16 @@
  */
 
 // Components
-import '@/assets/style.css'
-import App from './App.vue'
+import '@/assets/style.css';
+import "vue-toast-notification/dist/theme-default.css";
+import "vue-toast-notification/dist/theme-sugar.css";
+import App from './App.vue';
+
 // Composables
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
 // Plugins
-import { registerPlugins } from '@/plugins'
+import { registerPlugins } from '@/plugins';
 
 const app = createApp(App)
 

@@ -15,7 +15,7 @@
   .main_div{
     display: flex;
     justify-content: center;
-    margin-top: 45px;
+    /* margin-top: 45px; */
   }
 
   .container {
@@ -29,5 +29,7 @@
     text-align: left; */
     animation: myfirst 1.5s ease 1 forwards;
   }
-
+  .btn {
+    background-color: #ec860a;
+  }
  

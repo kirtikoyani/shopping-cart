@@ -1,98 +1,129 @@
 <template>
-  <v-container class="fill-height">
+  <v-container class="fill-height homePage">
     <v-responsive class="align-center text-center fill-height">
-      <div class="main_div">
-        <div class="container">
-          <v-form ref="form">
-            <h3 class="mb-4">Register</h3>
-            <v-text-field
-              v-model="userData.name"
-              label="Name"
-              variant="outlined"
-              required
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-text-field
-              v-model="userData.email"
-              label="email"
-              required
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-text-field
-              v-model="userData.password"
-              label="password"
-              required
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-text-field
-              v-model="userData.phone"
-              label="phone"
-              required
-              type="number"
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-
-            <v-text-field
-              v-model="userData.address"
-              label="address"
-              required
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-text-field
-              v-model="userData.country"
-              label="country"
-              required
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-radio-group v-model="userData.role" class="mx-auto">
-              <template v-slot:label>
-                <div>Select your role</div>
-              </template>
-              <div v-for="option in ['seller', 'buyer']" :key="option">
-                <v-radio :value="`${option}`">
-                  <template v-slot:label>
-                    <div>{{ option }}</div>
-                  </template>
-                </v-radio>
-              </div>
-            </v-radio-group>
-            <v-text-field
-              v-if="userData.role === 'seller'"
-              v-model="userData.businessCategory"
-              label="businessCategory"
-              required
-              variant="outlined"
-              prepend-inner-icon="mdi-map-marker"
-            ></v-text-field>
-            <v-checkbox
-              v-model="checkbox"
-              :rules="[(v) => !!v || 'You must agree to continue!']"
-              label="Do you agree?"
-              hide-details
-              required
-            ></v-checkbox>
-
-            <div class="d-flex flex-column pt-2">
-              <v-btn color="primary" block @click="postData"> Signup </v-btn>
-              <div @click="router.push('/login')">Login</div>
+      <v-row justify="center">
+        <v-col cols="12" md="8" lg="6">
+          <div class="main_div">
+            <div class="container">
+              <v-form ref="form">
+                <!-- <v-card> -->
+                <v-card-title class="text-h5">Register</v-card-title>
+                <v-card-text>
+                  <v-text-field
+                    v-model="userData.name"
+                    label="Name"
+                    variant="outlined"
+                    required
+                    :rules="nameRules"
+                    prepend-inner-icon="mdi-account"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="userData.email"
+                    label="Email"
+                    required
+                    variant="outlined"
+                    :rules="emailRules"
+                    prepend-inner-icon="mdi-email"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="userData.password"
+                    label="Password"
+                    required
+                    variant="outlined"
+                    :rules="passwordRules"
+                    prepend-inner-icon="mdi-lock"
+                    type="password"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="userData.phone"
+                    label="Phone"
+                    required
+                    type="number"
+                    variant="outlined"
+                    :rules="mobileNumberRules"
+                    prepend-inner-icon="mdi-phone"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="userData.address"
+                    label="Address"
+                    required
+                    variant="outlined"
+                    :rules="addressRules"
+                    prepend-inner-icon="mdi-map-marker"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="userData.country"
+                    label="Country"
+                    required
+                    variant="outlined"
+                    :rules="countryRules"
+                    prepend-inner-icon="mdi-earth"
+                  ></v-text-field>
+                  <v-radio-group
+                    v-model="userData.role"
+                    :rules="[(v) => !!v || 'You must select an option']"
+                    class="mx-auto"
+                  >
+                    <v-row>
+                      <v-col cols="6">
+                        <v-radio label="Seller" value="seller"></v-radio>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-radio label="Buyer" value="buyer"></v-radio>
+                      </v-col>
+                    </v-row>
+                  </v-radio-group>
+                  <v-text-field
+                    v-if="userData.role === 'seller'"
+                    v-model="userData.businessCategory"
+                    label="Business Category"
+                    required
+                    variant="outlined"
+                    prepend-inner-icon="mdi-store"
+                  ></v-text-field>
+                  <v-checkbox
+                    v-model="checkbox"
+                    :rules="[(v) => !!v || 'You must agree to continue!']"
+                    label="Do you agree?"
+                    required
+                  ></v-checkbox>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn class="btn text-white" width="100%" @click="postData"
+                    >Signup</v-btn
+                  >
+                </v-card-actions>
+                <!-- </v-card> -->
+                <v-row class="mt-2">
+                  <v-col class="text-center">
+                    <div class="text-primary" @click="router.push('/login')">
+                      Already have an account? Login
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-form>
             </div>
-          </v-form>
-        </div>
-      </div>
+          </div>
+        </v-col>
+      </v-row>
     </v-responsive>
   </v-container>
 </template>
+
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import { VForm } from "vuetify/lib/components/index.mjs";
 import router from "../router/index";
 import { API_call } from "../utils/auth";
-
+import { rules } from "../utils/rules";
+const {
+  addressRules,
+  countryRules,
+  emailRules,
+  mobileNumberRules,
+  nameRules,
+  passwordRules,
+} = rules();
 const form = ref<InstanceType<typeof VForm>>();
 let userData = reactive({
   name: "",
@@ -105,31 +136,27 @@ let userData = reactive({
   role: "",
 });
 const checkbox = ref("");
-// const data = ref(null);
-
-// let nameRules = [
-//   (v: string) => !!v || "Name is required",
-//   (v: string) =>
-//     (v && v.length <= 10) || "Name must be less than 10 characters",
-// ];
 
 async function postData() {
-  if (form.value?.isValid) {
-    try {
-      const { request } = API_call();
-      const response = await request.post("/user", userData);
+  const isValid = await form.value?.validate();
+  if (!isValid?.valid) return;
+  try {
+    const { request } = API_call();
+    const response = await request.post("/user", userData);
 
-      let data = await response.data;
-      if (data.error) {
-        alert(data.error);
-        return;
-      }
-      router.push("/home");
-    } catch (error) {
-      console.error(error);
+    let data = await response.data;
+    if (data.error) {
+      alert(data.error);
+      return;
     }
-  } else {
-    alert("form is not valid");
+    router.push("/login");
+  } catch (error) {
+    console.error(error);
   }
 }
 </script>
+<style>
+.btn {
+  background-color: #ec860a;
+}
+</style>

@@ -24,4 +24,8 @@ export interface cartProduct {
     category: string;
     images: string;
     quantity: number;
+    color:string;
+  }
+  export interface errorMsg {
+    error: string;
   }

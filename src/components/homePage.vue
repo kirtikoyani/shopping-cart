@@ -64,34 +64,59 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-dialog v-model="viewCard" width="auto">
-        <v-card class="pa-4">
+      <v-dialog v-model="viewCard" width="700">
+        <v-card class="pa-4 product-dialog">
           <div class="d-flex justify-space-between">
-            <img class="img" :src="`${selectedProductDetails.images}`" alt="" />
-            <div>
-              <div class="text-h6 mb-1">
+            <img
+              class="product-image"
+              :src="`${selectedProductDetails.images}`"
+              alt=""
+            />
+            <div
+              class="product-details d-flex flex-column justify-space-between"
+            >
+              <div class="product-title text-h6 mb-1">
                 {{ selectedProductDetails.title }}
               </div>
-              <div class="text-caption mb-4">
+              <div class="product-description text-caption mb-4">
                 {{ selectedProductDetails.description }}
               </div>
-              <div class="text-caption mb-4">
+              <div class="product-price text-caption mb-4">
                 &#8377;{{ selectedProductDetails.price }}
               </div>
-              <v-chip v-for="size in selectedProductDetails.size" :key="size">{{
-                size
-              }}</v-chip>
-              <div class="d-flex align-center">
-                <button @click="decrementQuantity" class="delete-button">
-                  -
-                </button>
-                <p class="mx-2">{{ selectedProductDetails.cartQuantity }}</p>
-                <button @click="incrementQuantity" class="delete-button">
-                  +
-                </button>
+              <v-chip-group class="product-sizes mb-4">
+                <v-chip v-for="size in selectedProductDetails.size" :key="size">
+                  {{ size }}
+                </v-chip>
+              </v-chip-group>
+              <div class="d-flex align-center justify-space-around">
+                <div class="quantity-control d-flex align-center">
+                  <button @click="decrementQuantity" class="quantity-button">
+                    -
+                  </button>
+                  <p class="mx-2">{{ selectedProductDetails.cartQuantity }}</p>
+                  <button @click="incrementQuantity" class="quantity-button">
+                    +
+                  </button>
+                </div>
+                <div class="rating">
+                  <div class="d-flex align-center justify-center">
+                   <p>{{ selectedProductDetails.rating }}</p> 
+                    <v-rating
+                      v-model="selectedProductDetails.rating"
+                      class="ma-2"
+                      density="compact"
+                      half-increments
+                    ></v-rating>
+                  </div>
+                </div>
               </div>
-              <v-btn class="mt-4" width="100%" @click="addToCart"
-                >Add to Cart
+              <v-btn
+                class="add-to-cart-btn mt-4"
+                width="100%"
+                @click="addToCart"
+              >
+                Add to Cart
               </v-btn>
             </div>
           </div>
@@ -234,5 +259,80 @@ getData();
 
 .search {
   width: 500px;
+}
+.product-dialog {
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-dialog:hover {
+  transform: scale(1.02);
+}
+.rating {
+  color: #ffc107; /* Star color */
+  font-size: 18px;
+}
+.product-image {
+  height: 400px;
+  object-fit: cover;
+  width: 300px;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.product-details {
+  width: 100%;
+}
+
+.product-title {
+  color: #333;
+  font-weight: bold;
+}
+
+.product-description {
+  color: #555;
+}
+
+.product-price {
+  color: #ec860a;
+  font-size: 18px;
+}
+
+.product-sizes {
+  margin-top: -8px;
+}
+
+.quantity-control {
+  margin-top: 10px;
+}
+
+.quantity-button {
+  background-color: #ec860a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px;
+  margin: 0 4px;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-button:hover {
+  background-color: #d16b00;
+}
+
+.add-to-cart-btn {
+  background-color: #ec860a;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #d16b00;
 }
 </style>
