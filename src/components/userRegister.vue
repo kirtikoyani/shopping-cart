@@ -93,6 +93,12 @@
                     >Signup</v-btn
                   >
                 </v-card-actions>
+                <v-progress-circular
+                v-if="isLoading"
+                indeterminate
+                size="24"
+                color="primary"
+              ></v-progress-circular>
                 <!-- </v-card> -->
                 <v-row class="mt-2">
                   <v-col class="text-center">
@@ -116,6 +122,7 @@ import { VForm } from "vuetify/lib/components/index.mjs";
 import router from "../router/index";
 import { API_call } from "../utils/auth";
 import { rules } from "../utils/rules";
+
 const {
   addressRules,
   countryRules,
@@ -136,10 +143,12 @@ let userData = reactive({
   role: "",
 });
 const checkbox = ref("");
+const isLoading = ref(false);
 
 async function postData() {
   const isValid = await form.value?.validate();
   if (!isValid?.valid) return;
+  isLoading.value = true;
   try {
     const { request } = API_call();
     const response = await request.post("/user", userData);

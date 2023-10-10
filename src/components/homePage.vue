@@ -27,7 +27,14 @@
       </v-responsive>
     </v-container>
     <v-container>
+    
       <v-row align="center" justify="center">
+        <v-progress-circular
+        v-if="isLoading"
+        indeterminate
+        size="24"
+        color="primary"
+      ></v-progress-circular>
         <v-col
           cols="12"
           sm="6"
@@ -101,7 +108,7 @@
                 </div>
                 <div class="rating">
                   <div class="d-flex align-center justify-center">
-                   <p>{{ selectedProductDetails.rating }}</p> 
+                    <p>{{ selectedProductDetails.rating }}</p>
                     <v-rating
                       v-model="selectedProductDetails.rating"
                       class="ma-2"
@@ -137,7 +144,11 @@ const viewCard = ref(false);
 const selectedProductDetails = ref({} as cartProduct);
 const cart_data = ref(localStorageHelper.get("add-cart") || []);
 const search = ref("");
+const isLoading = ref(false);
+
 async function getData() {
+  isLoading.value = true;
+
   try {
     const { request } = API_call();
     const response = await request.get("/product", {

@@ -28,12 +28,12 @@ export const API_call = (): {
     (res) => res,
     async (error: AxiosError) => {
       if (error.response?.status === 401) {
-        await router.push({ path: `/login` });
+        await router.push('/login');
         await localStorage.removeItem("token");
         const errorMsg = error?.response?.data as errorMsg;
 
         alertLib({
-          type: "success",
+          type: "warning",
           message: errorMsg?.error,
           position: "top-right",
         });
